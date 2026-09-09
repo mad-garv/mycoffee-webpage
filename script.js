@@ -69,34 +69,3 @@ async function loadHomePage() {
 }
 
 loadHomePage();
-
-var newPasswordInput = document.getElementById("new-password");
-var setPasswordButton = document.getElementById("set-password");
-var passwordStatus = document.getElementById("password-status");
-
-setPasswordButton.addEventListener("click", async function () {
-    var password = newPasswordInput.value;
-
-    if (password.length < 12) {
-        passwordStatus.textContent =
-            "Use a password with at least 12 characters.";
-        return;
-    }
-
-    setPasswordButton.disabled = true;
-    passwordStatus.textContent = "Setting password…";
-
-    var result = await supabaseClient.auth.updateUser({
-        password: password
-    });
-
-    setPasswordButton.disabled = false;
-
-    if (result.error) {
-        passwordStatus.textContent = result.error.message;
-    } else {
-        passwordStatus.textContent =
-            "Password set. You can now use it to sign in on other devices.";
-        newPasswordInput.value = "";
-    }
-});

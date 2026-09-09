@@ -12,24 +12,23 @@ async function alreadySignedIn() {
 
 alreadySignedIn();
 
+var passwordInput = document.getElementById("login-password");
+
 sendLinkButton.addEventListener("click", async function () {
     var email = emailInput.value.trim();
+    var password = passwordInput.value;
 
-    if (email === "") {
-        loginStatus.textContent = "Please enter your email.";
+    if (email === "" || password === "") {
+        loginStatus.textContent = "Enter your email and password.";
         return;
     }
 
     sendLinkButton.disabled = true;
-    loginStatus.textContent = "Sending your sign-in link…";
+    loginStatus.textContent = "Signing in…";
 
-    var redirectUrl = new URL("index.html", window.location.href).href;
-
-    var result = await supabaseClient.auth.signInWithOtp({
+    var result = await supabaseClient.auth.signInWithPassword({
         email: email,
-        options: {
-            emailRedirectTo: redirectUrl
-        }
+        password: password
     });
 
     sendLinkButton.disabled = false;
@@ -37,6 +36,6 @@ sendLinkButton.addEventListener("click", async function () {
     if (result.error) {
         loginStatus.textContent = result.error.message;
     } else {
-        loginStatus.textContent = "Check your email, then open the sign-in link.";
+        window.location.href = "index.html";
     }
 });
