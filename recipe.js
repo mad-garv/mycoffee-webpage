@@ -16,7 +16,7 @@ async function loadRecipePage() {
         return;
     }
 
-    
+
     var recipeImage = document.getElementById("recipe-image");
     var recipeTitle = document.getElementById("recipe-title");
     var recipeNote = document.getElementById("recipe-note");
@@ -25,6 +25,7 @@ async function loadRecipePage() {
     var triedStatus = document.getElementById("tried-status");
     var recipeRating = document.getElementById("recipe-rating");
     var editButton = document.getElementById("edit-coffee");
+    var deleteButton = document.getElementById("delete-coffee");
 
     recipeTitle.textContent = selectedCoffee.name;
 
@@ -112,6 +113,32 @@ async function loadRecipePage() {
 
     editButton.addEventListener("click", function () {
         openCoffeeModal(selectedCoffee);
+    });
+
+
+
+    deleteButton.addEventListener("click", async function () {
+        var shouldDelete = confirm(
+            "Delete " + selectedCoffee.name + "? This cannot be undone."
+        );
+
+        if (!shouldDelete) {
+            return;
+        }
+
+        try {
+            deleteButton.disabled = true;
+            deleteButton.textContent = "Deleting…";
+
+            await deleteCoffee(selectedCoffee);
+
+            window.location.href = "index.html";
+        } catch (error) {
+            alert("Could not delete this coffee: " + error.message);
+
+            deleteButton.disabled = false;
+            deleteButton.textContent = "Delete";
+        }
     });
 
 }

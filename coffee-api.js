@@ -148,18 +148,24 @@ async function saveCoffee(coffee, selectedImageFile) {
 }
 
 async function deleteCoffee(coffee) {
-    if (coffee.imagePath) {
-        await supabaseClient.storage
-            .from("coffee-images")
-            .remove([coffee.imagePath]);
-    }
+    await requireUser();
 
-    var result = await supabaseClient
+    var databaseResult = await supabaseClient
         .from("coffees")
         .delete()
         .eq("id", coffee.id);
 
-    if (result.error) {
-        throw result.error;
+    if (databaseResult.error) {
+        throw databaseResult.error;
+    }
+
+    if (coffee.imagePath) {
+        var imageResult = await supabaseClient.storage
+            .from("coffee-images")
+            .remove([coffee.imagePath]);
+
+        if (imageResult.error) {
+            console.error("Coffee deleted, but its photo could not be removed:", imageResult.error);
+        }
     }
 }
