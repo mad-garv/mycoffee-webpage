@@ -523,3 +523,14 @@ body {
     bottom: 12px;
     right: 20px;
 }
+
+#coffee-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
+    justify-content: start;
+}
+
+#coffee-container > .coffee-card,
+#coffee-container > #add-coffee {
+    width: 100%;
+    max-width: 280px;
+}
