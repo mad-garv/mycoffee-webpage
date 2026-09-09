@@ -81,7 +81,14 @@
     
             <button id="save-coffee" type="button">Save coffee</button>
         </div>
-    </div>    
+    </div>
+
+    <div id="set-password-panel">
+        <label for="new-password">Set a password for this coffee log</label>
+        <input id="new-password" type="password" minlength="12">
+        <button id="set-password" type="button">Set password</button>
+        <p id="password-status"></p>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
