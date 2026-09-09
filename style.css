@@ -534,3 +534,10 @@ body {
     width: 100%;
     max-width: 280px;
 }
+
+@media (max-width: 520px) {
+    #coffee-container {
+        grid-template-columns: minmax(200px, 280px);
+        justify-content: center;
+    }
+}
