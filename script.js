@@ -49,10 +49,14 @@ addCoffeeButton.addEventListener("click", function () {
     openCoffeeModal(null);
 });
 
-document.getElementById("sign-out").addEventListener("click", async function () {
-    await supabaseClient.auth.signOut();
-    window.location.href = "login.html";
-});
+var signOutButton = document.getElementById("sign-out");
+
+if (signOutButton) {
+    signOutButton.addEventListener("click", async function () {
+        await supabaseClient.auth.signOut();
+        window.location.href = "login.html";
+    });
+}
 
 async function loadHomePage() {
     await requireUser();

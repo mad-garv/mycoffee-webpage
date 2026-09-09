@@ -106,6 +106,7 @@ async function uploadCoffeeImage(file, oldImagePath) {
 }
 
 async function saveCoffee(coffee, selectedImageFile) {
+    await requireUser();
     var imagePath = await uploadCoffeeImage(
         selectedImageFile,
         coffee.imagePath
