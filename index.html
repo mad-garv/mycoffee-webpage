@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Coffee Log</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="header-container">
+        <div id="header-left">
+            <p id="header-title">MY COFFEE LOG</p>
+        </div>
+
+        <span id="header-tag">@madgarv</span>
+    </header>
+
+    <section id="hero">
+        <p id="title-tag">A Latte A Day</p>
+
+        <h1>A collection of ideas to explore, try and rate.</h1>
+
+        <p id="title-right">
+            Favourite recipes, saved with ingredients and methods.
+        </p>
+    </section>
+
+    <div id="coffee-container">
+        <button id="add-coffee">+</button>
+    </div>
+
+    <div id="coffee-modal">
+        <div id="modal-content">
+            <button id="cancel-coffee" class="modal-close" type="button">×</button>
+    
+            <h2 id="form-title">Save a new cup</h2>
+            <p class="modal-description">Give it a name, photo, and recipe to remember.</p>
+    
+            <label for="coffee-name">Title</label>
+            <input id="coffee-name" type="text" maxlength="60">
+    
+            <label>Photo <span>(optional)</span></label>
+    
+            <div class="photo-controls">
+                <label class="photo-button" for="image-upload">Upload photo</label>
+                <input id="image-upload" type="file" accept="image/*">
+    
+                <label class="photo-button" for="camera-upload">Take photo</label>
+                <input id="camera-upload" type="file" accept="image/*" capture="environment">
+            </div>
+    
+            <img id="image-preview" alt="Coffee preview">
+    
+            <label for="ingredients-input">Ingredients</label>
+            <textarea id="ingredients-input" rows="4"
+                placeholder="18 g — Espresso&#10;100 ml — Whole milk"></textarea>
+    
+            <label for="method-input">Method</label>
+            <textarea id="method-input" rows="5"
+                placeholder="Pull the espresso.&#10;Steam the milk.&#10;Pour and serve."></textarea>
+    
+            <label class="tried-check">
+                <input id="tried-checkbox" type="checkbox">
+                I've tried this recipe
+            </label>
+    
+            <div id="try-details">
+                <label for="tried-date">Date tried</label>
+                <input id="tried-date" type="date">
+    
+                <label for="coffee-rating">Rating</label>
+                <input id="coffee-rating" type="number" min="0" max="10" step="0.1"
+                    placeholder="e.g. 9.1">
+    
+                <label for="coffee-note">Small note <span>(optional)</span></label>
+                <input id="coffee-note" type="text"
+                    placeholder="e.g. Bright, sweet, and worth repeating">
+            </div>
+    
+            <button id="save-coffee" type="button">Save coffee</button>
+        </div>
+    </div>
+
+    <script src="coffee-form.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
