@@ -66,8 +66,9 @@ body {
 
 #coffee-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
     gap: 26px;
+    justify-content: start;
 }
 
 #add-coffee {
