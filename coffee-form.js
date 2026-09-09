@@ -1,5 +1,8 @@
 var COFFEE_STORAGE_KEY = "coffee-log";
 
+var editingCoffee = null;
+var selectedImageFile = null;
+
 function createCoffeeId() {
     return "coffee-" + Date.now() + "-" + Math.random().toString(16).slice(2);
 }
@@ -128,6 +131,7 @@ function compressImage(file) {
     var imageUpload = document.getElementById("image-upload");
     var cameraUpload = document.getElementById("camera-upload");
     var imagePreview = document.getElementById("image-preview");
+    var selectedImageFile = null;
 
     var editingCoffeeId = null;
     var imageData = null;
@@ -164,7 +168,7 @@ function compressImage(file) {
     }
 
     function clearForm() {
-        editingCoffeeId = null;
+        editingCoffee = null;
         imageData = null;
 
         formTitle.textContent = "Save a new cup";
@@ -190,7 +194,7 @@ function compressImage(file) {
         clearForm();
 
         if (coffee) {
-            editingCoffeeId = coffee.id;
+            editingCoffee = coffee;
             imageData = coffee.image || null;
 
             formTitle.textContent = "Edit coffee";
@@ -237,27 +241,27 @@ function compressImage(file) {
     }
 
     imageUpload.addEventListener("change", function () {
-        useSelectedImage(imageUpload.files[0]);
+        selectedImageFile = imageUpload.files[0] || null;
     });
-
+    
     cameraUpload.addEventListener("change", function () {
-        useSelectedImage(cameraUpload.files[0]);
+        selectedImageFile = cameraUpload.files[0] || null;
     });
 
     saveButton.addEventListener("click", async function () {
         var coffeeName = coffeeNameInput.value.trim();
-
+    
         if (coffeeName === "") {
             alert("Please give this coffee a title.");
             coffeeNameInput.focus();
             return;
         }
-
+    
         var rating = null;
-
+    
         if (triedCheckbox.checked) {
             rating = Number(coffeeRatingInput.value);
-
+    
             if (
                 triedDateInput.value === "" ||
                 coffeeRatingInput.value === "" ||
@@ -268,50 +272,40 @@ function compressImage(file) {
                 return;
             }
         }
-
-        var selectedFile = imageUpload.files[0] || cameraUpload.files[0];
-
-        if (selectedFile) {
-            imageData = await compressImage(selectedFile);
-        }
-
+    
         var coffee = {
-            id: editingCoffeeId || createCoffeeId(),
+            // Supabase creates an ID for brand-new coffees.
+            id: editingCoffee ? editingCoffee.id : null,
+    
+            // Keeps the old photo if you edit a coffee without choosing a new one.
+            imagePath: editingCoffee ? editingCoffee.imagePath : null,
+    
             name: coffeeName,
-            image: imageData,
+    
             recipe: {
                 ingredients: textToLines(ingredientsInput.value),
                 method: textToLines(methodInput.value)
             },
+    
             tried: triedCheckbox.checked,
             triedDate: triedCheckbox.checked ? triedDateInput.value : null,
             rating: rating,
             note: triedCheckbox.checked ? coffeeNoteInput.value.trim() : ""
         };
-
-        var coffees = loadCoffees();
-        var foundExistingCoffee = false;
-
-        for (var i = 0; i < coffees.length; i++) {
-            if (coffees[i].id === coffee.id) {
-                coffees[i] = coffee;
-                foundExistingCoffee = true;
-            }
-        }
-
-        if (!foundExistingCoffee) {
-            coffees.push(coffee);
-        }
-
-        saveCoffees(coffees);
-
-        localStorage.setItem("selected-coffee-id", coffee.id);
-        modal.classList.remove("show");
-
-        if (editingCoffeeId) {
-            window.location.href = "recipe.html";
-        } else {
-            window.location.href = "index.html";
+    
+        try {
+            saveButton.disabled = true;
+            saveButton.textContent = "Saving…";
+    
+            var savedCoffee = await saveCoffee(coffee, selectedImageFile);
+    
+            modal.classList.remove("show");
+            window.location.href = "recipe.html?id=" + savedCoffee.id;
+        } catch (error) {
+            alert("Could not save this coffee: " + error.message);
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save coffee";
         }
     });
 })();

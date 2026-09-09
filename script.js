@@ -39,19 +39,29 @@ function createCoffeeCard(coffee) {
     coffeeCard.appendChild(cardFooter);
 
     coffeeCard.addEventListener("click", function () {
-        localStorage.setItem("selected-coffee-id", coffee.id);
-        window.location.href = "recipe.html";
+        window.location.href = "recipe.html?id=" + coffee.id;
     });
 
     coffeeContainer.insertBefore(coffeeCard, addCoffeeButton);
 }
 
-var coffees = loadCoffees();
+async function loadHomePage() {
+    await requireUser();
 
-for (var i = 0; i < coffees.length; i++) {
-    createCoffeeCard(coffees[i]);
+    var coffees = await listCoffees();
+
+    for (var i = 0; i < coffees.length; i++) {
+        createCoffeeCard(coffees[i]);
+    }
 }
+
+loadHomePage();
 
 addCoffeeButton.addEventListener("click", function () {
     openCoffeeModal(null);
+});
+
+document.getElementById("sign-out").addEventListener("click", async function () {
+    await supabaseClient.auth.signOut();
+    window.location.href = "login.html";
 });

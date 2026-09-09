@@ -1,16 +1,22 @@
-var selectedCoffeeId = localStorage.getItem("selected-coffee-id");
-var coffees = loadCoffees();
-var selectedCoffee = null;
+async function loadRecipePage() {
+    var parameters = new URLSearchParams(window.location.search);
+    var coffeeId = parameters.get("id");
 
-for (var i = 0; i < coffees.length; i++) {
-    if (coffees[i].id === selectedCoffeeId) {
-        selectedCoffee = coffees[i];
+    if (!coffeeId) {
+        window.location.href = "index.html";
+        return;
     }
-}
 
-if (!selectedCoffee) {
-    window.location.href = "index.html";
-} else {
+    var selectedCoffee;
+
+    try {
+        selectedCoffee = await getCoffeeById(coffeeId);
+    } catch (error) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    
     var recipeImage = document.getElementById("recipe-image");
     var recipeTitle = document.getElementById("recipe-title");
     var recipeNote = document.getElementById("recipe-note");
@@ -107,4 +113,7 @@ if (!selectedCoffee) {
     editButton.addEventListener("click", function () {
         openCoffeeModal(selectedCoffee);
     });
+
 }
+
+loadRecipePage();
