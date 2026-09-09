@@ -510,3 +510,15 @@ body {
         font-size: 17px;
     }
 }
+
+#sign-out {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #5b3420;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    bottom: 12px;
+    right: 20px;
+}
