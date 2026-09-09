@@ -76,7 +76,7 @@ async function loadRecipePage() {
             var ingredientName = document.createElement("span");
             ingredientName.className = "ingredient-name";
 
-            var dashPosition = ingredientLine.indexOf("-");
+            var dashPosition = ingredientLine.indexOf("–");
 
             if (dashPosition === -1) {
                 ingredientName.textContent = ingredientLine;
