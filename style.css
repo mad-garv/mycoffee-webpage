@@ -509,17 +509,38 @@ body {
 
     #recipe-page {
         grid-template-columns: 1fr;
-        gap: 32px;
-        margin-top: 28px;
+        gap: 16px;
+        margin-top: 16px;
         padding: 0 0 40px;
     }
-
+    
     #recipe-image-column {
-        max-width: 420px;
+        width: min(85vw, 36svh);        
+        justify-self: center;
+        margin-inline: auto;
     }
-
+    
+    #recipe-meta {
+        padding: 0 0 8px;
+        font-size: 15px;
+    }
+    
+    #recipe-image {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+    }
+    
+    #recipe-details {
+        width: 100%;
+    }
+    
     #recipe-details h1 {
-        font-size: 38px;
+        margin: 0 0 8px;
+        font-size: clamp(32px, 8vw, 38px);
+    }
+    
+    #recipe-note {
+        margin: 0 0 22px;
     }
 
     .ingredient-row {
