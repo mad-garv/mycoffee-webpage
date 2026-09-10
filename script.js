@@ -96,9 +96,7 @@ async function updateManagementControls() {
         if (signOutButton) {
             signOutButton.style.display = "none";
         }
-    } else if (manageLogLink) {
-        manageLogLink.style.display = "none";
-    }
+    } 
 }
 
 updateManagementControls();

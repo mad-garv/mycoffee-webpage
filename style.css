@@ -585,3 +585,8 @@ body {
 #coffee-container.single-column {
     justify-content: center;
 }
+
+#manage-log {
+  color: inherit;
+  text-decoration: none;
+}
