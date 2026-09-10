@@ -296,7 +296,7 @@ function compressImage(file) {
             triedDate: triedCheckbox.checked ? triedDateInput.value : null,
             rating: rating,
             note: triedCheckbox.checked ? coffeeNoteInput.value.trim() : "",
-            thoughts: triedCheckbox.checked ? coffeeThoughtsInput.value.trim : ""
+            thoughts: triedCheckbox.checked ? coffeeThoughtsInput.value.trim() : ""
         };
     
         try {

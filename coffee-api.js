@@ -40,7 +40,8 @@ async function rowToCoffee(row) {
         tried: row.tried,
         triedDate: row.tried_date,
         rating: row.rating,
-        note: row.note || ""
+        note: row.note || "",
+        thoughts: row.thoughts || ""
     };
 }
 
@@ -120,6 +121,7 @@ async function saveCoffee(coffee, selectedImageFile) {
         tried_date: coffee.triedDate,
         rating: coffee.rating,
         note: coffee.note,
+        thoughts: coffee.thoughts,
         image_path: imagePath
     };
 

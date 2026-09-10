@@ -59,7 +59,7 @@ async function loadRecipePage() {
         }
 
         if (!selectedCoffee.thoughts || selectedCoffee.thoughts.trim() === "") {
-            recipeNote.textContent = "testing recipe thoughts output section";
+            recipeThoughts.textContent = "testing recipe thoughts output section";
         } else {
             recipeThoughts.textContent = selectedCoffee.thoughts;
         }
@@ -67,6 +67,7 @@ async function loadRecipePage() {
         triedStatus.textContent = "Yet to try";
         recipeRating.textContent = "?/10";
         recipeNote.textContent = "HOW HAVE YOU NOT TRIED THIS ONE YET??";
+        recipeThoughts.textContent = "";        
     }
 
     if (selectedCoffee.recipe.ingredients.length === 0) {
