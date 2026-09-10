@@ -59,7 +59,7 @@ async function loadRecipePage() {
         }
 
         if (!selectedCoffee.thoughts || selectedCoffee.thoughts.trim() === "") {
-            recipeThoughts.textContent = "testing recipe thoughts output section";
+            recipeThoughts.textContent = "worth repeating";
         } else {
             recipeThoughts.textContent = selectedCoffee.thoughts;
         }
