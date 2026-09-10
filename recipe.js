@@ -27,6 +27,13 @@ async function loadRecipePage() {
     var recipeRating = document.getElementById("recipe-rating");
     var editButton = document.getElementById("edit-coffee");
     var deleteButton = document.getElementById("delete-coffee");
+    var authResult = await supabaseClient.auth.getUser();
+    var user = authResult.data.user;
+
+    if (!user) {
+        editButton.style.display = "none";
+        deleteButton.style.display = "none";
+    }
 
     recipeTitle.textContent = selectedCoffee.name;
 
@@ -67,7 +74,7 @@ async function loadRecipePage() {
         triedStatus.textContent = "Yet to try";
         recipeRating.textContent = "?/10";
         recipeNote.textContent = "HOW HAVE YOU NOT TRIED THIS ONE YET??";
-        recipeThoughts.textContent = "";        
+        recipeThoughts.textContent = "";
     }
 
     if (selectedCoffee.recipe.ingredients.length === 0) {

@@ -83,9 +83,27 @@ function updateCoffeeLayout() {
 
 window.addEventListener("resize", updateCoffeeLayout);
 
-async function loadHomePage() {
-    await requireUser();
+async function updateManagementControls() {
+    var result = await supabaseClient.auth.getUser();
+    var user = result.data.user;
 
+    var manageLogLink = document.getElementById("manage-log");
+    var signOutButton = document.getElementById("sign-out");
+
+    if (!user) {
+        addCoffeeButton.style.display = "none";
+
+        if (signOutButton) {
+            signOutButton.style.display = "none";
+        }
+    } else if (manageLogLink) {
+        manageLogLink.style.display = "none";
+    }
+}
+
+updateManagementControls();
+
+async function loadHomePage() {    
     var coffees = await listCoffees();
 
     for (var i = 0; i < coffees.length; i++) {

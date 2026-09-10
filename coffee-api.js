@@ -10,21 +10,16 @@ async function requireUser() {
     return user;
 }
 
-async function getCoffeeImageUrl(imagePath) {
+function getCoffeeImageUrl(imagePath) {
     if (!imagePath) {
         return null;
     }
 
-    var result = await supabaseClient.storage
+    var result = supabaseClient.storage
         .from("coffee-images")
-        .createSignedUrl(imagePath, 3600);
+        .getPublicUrl(imagePath);
 
-    if (result.error) {
-        console.error(result.error);
-        return null;
-    }
-
-    return result.data.signedUrl;
+    return result.data.publicUrl;
 }
 
 async function rowToCoffee(row) {
@@ -32,7 +27,7 @@ async function rowToCoffee(row) {
         id: row.id,
         name: row.name,
         imagePath: row.image_path,
-        image: await getCoffeeImageUrl(row.image_path),
+        image: getCoffeeImageUrl(row.image_path),
         recipe: {
             ingredients: row.ingredients || [],
             method: row.method || []
@@ -46,8 +41,6 @@ async function rowToCoffee(row) {
 }
 
 async function listCoffees() {
-    await requireUser();
-
     var result = await supabaseClient
         .from("coffees")
         .select("*")
@@ -61,8 +54,6 @@ async function listCoffees() {
 }
 
 async function getCoffeeById(id) {
-    await requireUser();
-
     var result = await supabaseClient
         .from("coffees")
         .select("*")
