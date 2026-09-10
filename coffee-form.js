@@ -36,6 +36,7 @@ function loadCoffees() {
             coffees[i].triedDate = null;
             coffees[i].rating = null;
             coffees[i].note = "";
+            coffees[i].thoughts ="";
             changed = true;
         }
     }
@@ -127,6 +128,7 @@ function compressImage(file) {
     var triedDateInput = document.getElementById("tried-date");
     var coffeeRatingInput = document.getElementById("coffee-rating");
     var coffeeNoteInput = document.getElementById("coffee-note");
+    var coffeeThoughtsInput = document.getElementById("coffee-thoughts");
 
     var imageUpload = document.getElementById("image-upload");
     var cameraUpload = document.getElementById("camera-upload");
@@ -182,6 +184,7 @@ function compressImage(file) {
         triedDateInput.value = "";
         coffeeRatingInput.value = "";
         coffeeNoteInput.value = "";
+        coffeeThoughtsInput.value = "";
 
         imageUpload.value = "";
         cameraUpload.value = "";
@@ -208,6 +211,7 @@ function compressImage(file) {
             triedDateInput.value = coffee.triedDate || "";
             coffeeRatingInput.value = coffee.rating === null ? "" : coffee.rating;
             coffeeNoteInput.value = coffee.note || "";
+            coffeeThoughtsInput.value = coffee.thoughts || "";
 
             updateTryDetails(false);
             showImagePreview();
@@ -226,6 +230,7 @@ function compressImage(file) {
             triedDateInput.value = "";
             coffeeRatingInput.value = "";
             coffeeNoteInput.value = "";
+            coffeeThoughtsInput.value = "";
         }
 
         updateTryDetails(true);
@@ -290,7 +295,8 @@ function compressImage(file) {
             tried: triedCheckbox.checked,
             triedDate: triedCheckbox.checked ? triedDateInput.value : null,
             rating: rating,
-            note: triedCheckbox.checked ? coffeeNoteInput.value.trim() : ""
+            note: triedCheckbox.checked ? coffeeNoteInput.value.trim() : "",
+            thoughts: triedCheckbox.checked ? coffeeThoughtsInput.value.trim : ""
         };
     
         try {

@@ -20,6 +20,7 @@ async function loadRecipePage() {
     var recipeImage = document.getElementById("recipe-image");
     var recipeTitle = document.getElementById("recipe-title");
     var recipeNote = document.getElementById("recipe-note");
+    var recipeThoughts = document.getElementById("recipe-thoughts");
     var ingredientsList = document.getElementById("ingredients-list");
     var methodList = document.getElementById("method-list");
     var triedStatus = document.getElementById("tried-status");
@@ -55,6 +56,12 @@ async function loadRecipePage() {
             recipeNote.textContent = "im sure it slapped";
         } else {
             recipeNote.textContent = selectedCoffee.note;
+        }
+
+        if (!selectedCoffee.thoughts || selectedCoffee.thoughts.trim() === "") {
+            recipeNote.textContent = "testing recipe thoughts output section";
+        } else {
+            recipeThoughts.textContent = selectedCoffee.thoughts;
         }
     } else {
         triedStatus.textContent = "Yet to try";
