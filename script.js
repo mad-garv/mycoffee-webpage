@@ -58,6 +58,31 @@ if (signOutButton) {
     });
 }
 
+function updateCoffeeLayout() {
+    var cards = coffeeContainer.children;
+
+    if (cards.length === 0) {
+        return;
+    }
+
+    var firstRowTop = cards[0].offsetTop;
+    var cardsOnFirstRow = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+        if (cards[i].offsetTop === firstRowTop) {
+            cardsOnFirstRow++;
+        }
+    }
+
+    if (cardsOnFirstRow === 1) {
+        coffeeContainer.classList.add("single-column");
+    } else {
+        coffeeContainer.classList.remove("single-column");
+    }
+}
+
+window.addEventListener("resize", updateCoffeeLayout);
+
 async function loadHomePage() {
     await requireUser();
 
@@ -66,6 +91,8 @@ async function loadHomePage() {
     for (var i = 0; i < coffees.length; i++) {
         createCoffeeCard(coffees[i]);
     }
+
+    updateCoffeeLayout();
 }
 
 loadHomePage();

@@ -65,10 +65,11 @@ body {
 }
 
 #coffee-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
+    display: flex;
+    flex-wrap: wrap;
     gap: 26px;
-    justify-content: start;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 #add-coffee {
@@ -84,13 +85,13 @@ body {
 }
 
 .coffee-card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) 60px;
+    min-height: 0;
     border: 1px solid #d6bda9;
     background-color: #fffaf5;
-    box-shadow: none;
     cursor: pointer;
-    transition: transform 0.5s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .image-placeholder {
@@ -105,7 +106,7 @@ body {
 }
 
 .card-footer {
-    min-height: 60px;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,7 +119,6 @@ body {
     color: #3b2418;
     font-size: 20px;
     font-weight: normal;
-
 }
 
 .card-rating {
@@ -134,9 +134,10 @@ body {
 
 .coffee-card,
 #add-coffee {
-    width: 100%;
-    min-width: 0;
-    max-width: none;
+    flex: 1 1 calc((100% - 78px) / 4);
+    width: auto;
+    min-width: 240px;
+    max-width: 280px;
     height: auto;
     aspect-ratio: 2 / 3;
     border-radius: 24px;
@@ -552,20 +553,14 @@ body {
     right: 20px;
 }
 
-#coffee-container {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
-    justify-content: start;
-}
-
-#coffee-container > .coffee-card,
-#coffee-container > #add-coffee {
+.coffee-image,
+.image-placeholder {
     width: 100%;
-    max-width: 280px;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
 }
 
-@media (max-width: 520px) {
-    #coffee-container {
-        grid-template-columns: minmax(200px, 280px);
-        justify-content: center;
-    }
+#coffee-container.single-column {
+    justify-content: center;
 }
