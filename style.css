@@ -532,12 +532,12 @@ body {
     }
 }
 
-#recipe-image-column {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 24px;
-    align-self: start;
-    height: fit-content;
+@media (min-width: 901px) {
+    #recipe-image-column {
+        position: sticky;
+        top: 24px;
+        align-self: start;
+    }
 }
 
 #sign-out {
