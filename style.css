@@ -515,7 +515,7 @@ body {
     }
     
     #recipe-image-column {
-        width: min(85vw, 36svh);        
+        width: min(85vw, 42svh);        
         justify-self: center;
         margin-inline: auto;
     }
